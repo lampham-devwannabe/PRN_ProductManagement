@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Workspace\CSharp\ProductManagementDemo\WPFApp\obj\Debug\net8.0-windows\
+C:\Workspace\dotnet\PRN_ProductManagement\WPFApp\obj\Debug\net8.0-windows\
 WPFApp
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Workspace\CSharp\ProductManagementDemo\WPFApp\App.xaml
+C:\Workspace\dotnet\PRN_ProductManagement\WPFApp\App.xaml
 2-216653475
 
-7-345609135
-212-430336096
+11-1513411772
+238182331646
 LoginWindow.xaml;MainWindow.xaml;
 
-True
+False
 

@@ -1,6 +1,5 @@
-﻿using BusinessObjects;
-using DataAccessObjects;
-using Services;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFApp.Model;
 
 namespace WPFApp
 {
@@ -19,19 +19,22 @@ namespace WPFApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IProductService iProductService;
-        private readonly ICategoryService iCategoryService;
+        private readonly MyStoreContext _context;
+        public ObservableCollection<Product> Products { get; set; } = new ObservableCollection<Product>();
+
         public MainWindow()
         {
             InitializeComponent();
-            iProductService = new ProductService();
-            iCategoryService = new CategoryService();
+            _context = new MyStoreContext();
+            DataContext = this;
+            LoadCategoryList();
+            LoadProductList();
         }
         public void LoadCategoryList()
         {
             try
             {
-                var catList = iCategoryService.GetCategories();
+                var catList = _context.Categories.ToList();
                 cboCategory.ItemsSource = catList;
                 cboCategory.DisplayMemberPath = "CategoryName";
                 cboCategory.SelectedValuePath = "CategoryId";
@@ -45,7 +48,12 @@ namespace WPFApp
         {
             try
             {
-                var productList = iProductService.GetProducts();
+                Products.Clear();
+                var productList = _context.Products.ToList();
+                foreach (var item in productList)
+                {
+                    Products.Add(item);
+                }
                 dgData.ItemsSource = productList;
             }
             catch (Exception ex)
@@ -70,33 +78,33 @@ namespace WPFApp
                 product.ProductName = txtProductName.Text;
                 product.UnitPrice = decimal.Parse(txtPrice.Text);
                 product.UnitsInStock = short.Parse(txtUnitsInStock.Text);
-                product.CategoryId = int.Parse(cboCategory.SelectedValue.ToString());
-                iProductService.SaveProduct(product);
+                if (int.TryParse(cboCategory.SelectedValue.ToString(), out int categoryId))
+                {
+                    product.CategoryId = categoryId;
+                }
+                _context.Products.Add(product);
+                _context.SaveChanges();
+                LoadProductList();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-                LoadProductList();
-            }
         }
         private void dgData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataGrid dataGrid = sender as DataGrid;
-            DataGridRow row =
-                (DataGridRow)dataGrid.ItemContainerGenerator
-                .ContainerFromIndex(dataGrid.SelectedIndex);
-            DataGridCell RowColumn =
-                dataGrid.Columns[0].GetCellContent(row).Parent as DataGridCell;
-            string id = ((TextBlock)RowColumn.Content).Text;
-            Product product = iProductService.GetProductById(int.Parse(id));
-            txtProductID.Text = product.ProductId.ToString();
-            txtProductName.Text = product.ProductName;
-            txtPrice.Text = product.UnitPrice.ToString();
-            txtUnitsInStock.Text = product.UnitsInStock.ToString();
-            cboCategory.SelectedValue = product.CategoryId;
+            if (dgData.SelectedItem is Product selectedProduct)
+            {
+                txtProductID.Text = selectedProduct.ProductId.ToString();
+                txtProductName.Text = selectedProduct.ProductName;
+                txtPrice.Text = selectedProduct.UnitPrice.ToString();
+                txtUnitsInStock.Text = selectedProduct.UnitsInStock.ToString();
+                cboCategory.SelectedValue = selectedProduct.CategoryId;
+            }
+            else
+            {
+                resetInput();
+            }
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -108,26 +116,35 @@ namespace WPFApp
             {
                 if (txtProductID.Text.Length > 0)
                 {
-                    Product product = new Product();
-                    product.ProductId = int.Parse(txtProductID.Text);
-                    product.ProductName = txtProductName.Text;
-                    product.UnitPrice = decimal.Parse(txtPrice.Text);
-                    product.UnitsInStock = short.Parse(txtUnitsInStock.Text);
-                    product.CategoryId = int.Parse(cboCategory.SelectedValue.ToString());
-                    iProductService.UpdateProduct(product);
+                    int productId = int.Parse(txtProductID.Text);
+                    Product product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
+                    if (product != null)
+                    {
+                        product.ProductName = txtProductName.Text;
+                        product.UnitPrice = Decimal.Parse(txtPrice.Text);
+                        product.UnitsInStock = short.Parse(txtUnitsInStock.Text);
+                        if (int.TryParse(cboCategory.SelectedValue.ToString(), out int categoryId))
+                        {
+                            product.CategoryId = categoryId;
+                        }
+                        _context.SaveChanges();
+                        MessageBox.Show("Product updated successfully!");
+                        LoadProductList(); // Refresh product list after update
+                        resetInput(); // Reset the input fields after the update
+                    }
+                    else
+                    {
+                        MessageBox.Show("Product not found!");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("You must select a product!");
+                    MessageBox.Show("You must select a Product!");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                LoadProductList();
             }
         }
 
@@ -137,26 +154,28 @@ namespace WPFApp
             {
                 if (txtProductID.Text.Length > 0)
                 {
-                    Product product = new Product();
-                    product.ProductId = int.Parse(txtProductID.Text);
-                    product.ProductName = txtProductName.Text;
-                    product.UnitPrice = decimal.Parse(txtPrice.Text);
-                    product.UnitsInStock = short.Parse(txtUnitsInStock.Text);
-                    product.CategoryId = int.Parse(cboCategory.SelectedValue.ToString());
-                    iProductService.DeleteProduct(product);
+                    int productId = int.Parse(txtProductID.Text);
+                    Product product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
+                    if (product != null)
+                    {
+                        _context.Products.Remove(product);
+                        _context.SaveChanges();
+                        MessageBox.Show("Product deleted successfully!");
+                        LoadProductList();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Product not found!");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("You must select a product!");
+                    MessageBox.Show("You must select a Product!");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                LoadProductList();
             }
         }
         private void resetInput()

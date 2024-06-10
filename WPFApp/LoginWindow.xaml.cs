@@ -1,6 +1,4 @@
-﻿using BusinessObjects;
-using Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Model;
 
 namespace WPFApp
 {
@@ -21,15 +20,15 @@ namespace WPFApp
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private readonly IAccountService iAccountService;
+        private readonly MyStoreContext _context;
         public LoginWindow()
         {
             InitializeComponent();
-            iAccountService = new AccountService();
+            _context = new MyStoreContext();
         }
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            AccountMember account = iAccountService.GetAccountById(txtUser.Text);
+            AccountMember account = _context.AccountMembers.FirstOrDefault(x => x.MemberId == txtUser.Text);
             if (account != null && account.MemberPassword.Equals(txtPass.Password)
                 && account.MemberRole == 1)
             {

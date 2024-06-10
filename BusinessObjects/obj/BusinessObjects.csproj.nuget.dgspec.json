@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Workspace\\CSharp\\ProductManagementDemo\\BusinessObjects\\BusinessObjects.csproj": {}
+    "C:\\Workspace\\dotnet\\PRN_ProductManagement\\BusinessObjects\\BusinessObjects.csproj": {}
   },
   "projects": {
-    "C:\\Workspace\\CSharp\\ProductManagementDemo\\BusinessObjects\\BusinessObjects.csproj": {
+    "C:\\Workspace\\dotnet\\PRN_ProductManagement\\BusinessObjects\\BusinessObjects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Workspace\\CSharp\\ProductManagementDemo\\BusinessObjects\\BusinessObjects.csproj",
+        "projectUniqueName": "C:\\Workspace\\dotnet\\PRN_ProductManagement\\BusinessObjects\\BusinessObjects.csproj",
         "projectName": "BusinessObjects",
-        "projectPath": "C:\\Workspace\\CSharp\\ProductManagementDemo\\BusinessObjects\\BusinessObjects.csproj",
+        "projectPath": "C:\\Workspace\\dotnet\\PRN_ProductManagement\\BusinessObjects\\BusinessObjects.csproj",
         "packagesPath": "C:\\Users\\lamph\\.nuget\\packages\\",
-        "outputPath": "C:\\Workspace\\CSharp\\ProductManagementDemo\\BusinessObjects\\obj\\",
+        "outputPath": "C:\\Workspace\\dotnet\\PRN_ProductManagement\\BusinessObjects\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,6 +49,22 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.6, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -65,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
