@@ -1,0 +1,17 @@
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\bin\Debug\net8.0\BusinessObjects.dll
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\bin\Debug\net8.0\DataAccessObjects.dll
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\bin\Debug\net8.0\BusinessObjects.pdb
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\bin\Debug\net8.0\DataAccessObjects.pdb
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\Reposito.787EC4B2.Up2Date
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Workspace\CSharp\ProductManagementDemo\Repositories\obj\Debug\net8.0\ref\Repositories.dll
